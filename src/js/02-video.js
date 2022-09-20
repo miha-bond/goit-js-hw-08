@@ -1,24 +1,34 @@
-// import Player from '@vimeo/player';
 import Player from '@vimeo/player';
-
-const player = new Player('vimeo-player', {
-  id: 19231868,
-  width: 640,
-});
+// const vimeoPlayer = document.querySelector('#vimeo-player');
+// const player = new Player(vimeoPlayer);
+const player = new Player('vimeo-player');
 // ---------------------------------------
 player.on('timeupdate', function (data) {
-  //
   localStorage.setItem('videoplayer-current-time', JSON.stringify(data));
 });
-const timeLocalStr = JSON.parse(
-  localStorage.getItem('videoplayer-current-time')
-);
-// console.log(timeLocalStr);
 // ---------------------------------------
-player.getPlayed().then(function (played) {
-  played.push(timeLocalStr);
-  console.log(played);
-});
+const timeLocalStr = localStorage.getItem('videoplayer-current-time');
+console.log(timeLocalStr);
+const savedTime = JSON.parse(timeLocalStr).seconds;
+console.log(savedTime);
+// ------------------
+player
+  .setCurrentTime(savedTime)
+  .then(function (seconds) {
+    // seconds = the actual time that the player seeked to
+  })
+  .catch(function (error) {
+    switch (error.name) {
+      case 'RangeError':
+        // the time was less than 0 or greater than the video’s duration
+        break;
+
+      default:
+        // some other error occurred
+        break;
+    }
+  });
+//------------------------------------------
 //todo Завдання 2 - відеоплеєр
 //? HTML містить <iframe> з відео для Vimeo плеєра. Напиши скрипт, який буде зберігати поточний час відтворення відео у локальне сховище і, після перезавантаження сторінки, продовжувати відтворювати відео з цього часу.
 
