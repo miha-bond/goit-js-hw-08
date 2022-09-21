@@ -1,3 +1,16 @@
+const refs = {
+  form: document.querySelector('.feedback-form'),
+  email: document.querySelector('input'),
+  message: document.querySelector('textarea'),
+  button: document.querySelector('button'),
+};
+const inoutVelue = event => {
+  const { value } = event.target;
+  console.log(value);
+};
+refs.email.addEventListener('input', inoutVelue);
+
+// ---------------------------------
 //todo Завдання 3 - форма зворотного зв'язку
 //? HTML містить розмітку форми. Напиши скрипт, який буде зберігати значення полів у локальне сховище, коли користувач щось друкує.
 //
