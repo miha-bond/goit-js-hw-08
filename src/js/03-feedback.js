@@ -1,9 +1,14 @@
+import throttle from 'lodash.throttle';
+import { load, save, remove } from './storage';
+// ----------------------------------
+const LOCALSTORAGE_KEY = 'feedback-form-state';
 const refs = {
   form: document.querySelector('.feedback-form'),
   email: document.querySelector('input'),
   message: document.querySelector('textarea'),
   button: document.querySelector('button'),
 };
+// -----------------------------------
 const inoutVelue = event => {
   const { value } = event.target;
   console.log(value);
