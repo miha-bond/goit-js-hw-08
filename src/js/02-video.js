@@ -1,20 +1,32 @@
 import Player from '@vimeo/player';
+import throttle from 'lodash.throttle';
+import { save, load } from './storage';
+// --------------------------------------------
 const player = new Player('vimeo-player');
-var throttle = require('lodash.throttle');
+const LOCALSTORAGE_KEY = 'videoplayer-current-time';
+// ---------------------------------------------
+player.on('timeupdate', throttle(data, 1000));
+function data(timeupdate) {
+  const seconds = timeupdate.seconds;
+  save(LOCALSTORAGE_KEY, seconds);
+}
 // ---------------------------------------
-player.on(
-  'timeupdate',
-  throttle(function (data) {
-    localStorage.setItem('videoplayer-current-time', JSON.stringify(data));
-  }, 1000)
-);
-// ---------------------------------------
-const timeLocalStr = localStorage.getItem('videoplayer-current-time');
-const savedTime = JSON.parse(timeLocalStr).target.seconds;
-// ---------------------------------------
-player.setCurrentTime(savedTime).then(function (seconds) {
-  // seconds = the actual time that the player seeked to
-});
+player
+  .setCurrentTime(load(LOCALSTORAGE_KEY))
+  .then(function (seconds) {
+    // seconds = the actual time that the player seeked to
+  })
+  .catch(function (error) {
+    switch (error.name) {
+      case 'RangeError':
+        // the time was less than 0 or greater than the video’s duration
+        break;
+
+      default:
+        // some other error occurred
+        break;
+    }
+  });
 //----------------------------------------
 
 //todo Завдання 2 - відеоплеєр
