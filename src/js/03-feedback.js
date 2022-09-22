@@ -30,7 +30,7 @@ function initPage() {
 const onSubmit = event => {
   event.preventDefault();
   const {
-    elements: { name, email, message },
+    elements: { email, message },
   } = event.currentTarget;
   event.currentTarget.reset();
   remove(LOCALSTORAGE_FORM_KEY);
