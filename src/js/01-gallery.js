@@ -1,6 +1,7 @@
-// Add imports above this line
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import { galleryItems } from './gallery-items';
-// Change code below this line
+// +++++++++++++++++++++++++++++++++++++++++++++++++
 const galleryRef = document.querySelector('.gallery');
 galleryRef.addEventListener('click', onImgClick);
 
@@ -16,11 +17,6 @@ const addItemGallery = galleryItems.map(
 );
 const markup = addItemGallery.join('');
 galleryRef.insertAdjacentHTML('afterbegin', markup);
-//
-//---------------------------------------------
-import SimpleLightbox from 'simplelightbox';
-//---------------------------------------------
-import 'simplelightbox/dist/simple-lightbox.min.css';
 //---------------------------------------------
 function onImgClick(evt) {
   evt.preventDefault();
@@ -41,8 +37,8 @@ new SimpleLightbox('.gallery a', {
   animationSlide: true,
   maxZoom: 1.5,
 });
-//
-//
+// ---------------------------------------------
+// =============================================
 //todo Завдання 1 - бібліотека SimpleLightbox
 //? Виконуй це завдання у файлах 01-gallery.html і 01-gallery.js. Розбий його на декілька підзавдань:
 
