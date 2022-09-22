@@ -3,16 +3,16 @@ import throttle from 'lodash.throttle';
 import { save, load } from './storage';
 // --------------------------------------------
 const player = new Player('vimeo-player');
-const LOCALSTORAGE_KEY = 'videoplayer-current-time';
+const LOCALSTORAGE_PLAYER_KEY = 'videoplayer-current-time';
 // ---------------------------------------------
 player.on('timeupdate', throttle(data, 1000));
 function data(timeupdate) {
   const seconds = timeupdate.seconds;
-  save(LOCALSTORAGE_KEY, seconds);
+  save(LOCALSTORAGE_PLAYER_KEY, seconds);
 }
 // ---------------------------------------
 player
-  .setCurrentTime(load(LOCALSTORAGE_KEY))
+  .setCurrentTime(load(LOCALSTORAGE_PLAYER_KEY))
   .then(function (seconds) {
     // seconds = the actual time that the player seeked to
   })
