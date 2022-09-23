@@ -10,24 +10,26 @@ player.on('timeupdate', throttle(data, 1000));
 function data(timeupdate) {
   const seconds = timeupdate.seconds;
   save(LOCALSTORAGE_PLAYER_KEY, seconds);
+  if (!seconds) {
+    return;
+  }
 }
-// -----------------------------------------------
-player
-  .setCurrentTime(load(LOCALSTORAGE_PLAYER_KEY))
-  .then(function (seconds) {
-    // seconds = the actual time that the player seeked to
-  })
-  .catch(function (error) {
-    switch (error.name) {
-      case 'RangeError':
-        // the time was less than 0 or greater than the video’s duration
-        break;
 
-      default:
-        // some other error occurred
-        break;
-    }
-  });
+// -----------------------------------------------
+player.setCurrentTime(load(LOCALSTORAGE_PLAYER_KEY)).then(function (seconds) {
+  // seconds = the actual time that the player seeked to
+});
+// .catch(function (error) {
+//   switch (error.name) {
+//     case 'RangeError':
+//       // the time was less than 0 or greater than the video’s duration
+//       break;
+
+//     default:
+//       // some other error occurred
+//       break;
+//   }
+// });
 // ------------------------------------------------
 const markup = `<button class="buttonReset" type="reset">Очистити час перегляду</button>`;
 refPlayer.insertAdjacentHTML('afterend', markup);

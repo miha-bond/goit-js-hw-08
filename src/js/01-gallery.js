@@ -18,12 +18,6 @@ const addItemGallery = galleryItems.map(
 const markup = addItemGallery.join('');
 galleryRef.insertAdjacentHTML('afterbegin', markup);
 //---------------------------------------------
-function onImgClick(evt) {
-  evt.preventDefault();
-  if (evt.target.nodeName !== 'IMG') {
-    return;
-  }
-}
 new SimpleLightbox('.gallery a', {
   captions: true,
   captionType: 'attr',
