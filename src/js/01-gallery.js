@@ -5,6 +5,10 @@ import { galleryItems } from './gallery-items';
 const galleryRef = document.querySelector('.gallery');
 galleryRef.addEventListener('click', onImgClick);
 
+function onImgClick(evt) {
+  evt.preventDefault();
+}
+
 const addItemGallery = galleryItems.map(
   ({ preview, original, description }) => {
     return `
